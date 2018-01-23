@@ -12,5 +12,11 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('pages.home');
 });
+
+Route::resources([
+    'beer' => 'BeerController',
+    'beer_type' => 'BeerTypeController',
+    'brand' => 'BrandController'
+]);
