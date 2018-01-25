@@ -20,3 +20,5 @@ Route::resources([
     'beer_type' => 'BeerTypeController',
     'brand' => 'BrandController'
 ]);
+Route::get('/beer/{id}/toggle', 'BeerController@toggle');
+Route::get('/brand/{id}/toggle', 'BrandController@toggle');

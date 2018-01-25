@@ -91,6 +91,20 @@ class BrandController extends Controller
     }
 
     /**
+     * Toggle status the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function toggle($id)
+    {
+        $model = Brand::findOrFail($id);
+        $model->toggle();
+
+        return redirect(route('brand.index'));
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
@@ -119,7 +133,7 @@ class BrandController extends Controller
         $grid->add('beers_count', 'Count Beers', true);
         $grid->add('status', 'Status', true)
             ->cell(function ($value, Brand $model) {
-                return $model->getStatus();
+                return HtmlFacade::link("brand/{$model->id}/toggle", $model->getStatus());
             });
         $grid->edit('/brand', __('Actions'), 'show|edit|destroy')
             ->cell(function (View $value, Brand $model) {

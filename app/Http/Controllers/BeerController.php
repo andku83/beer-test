@@ -91,6 +91,20 @@ class BeerController extends Controller
     }
 
     /**
+     * Toggle status the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function toggle($id)
+    {
+        $model = Beer::findOrFail($id);
+        $model->toggle();
+
+        return redirect(route('beer.index'));
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
@@ -120,7 +134,7 @@ class BeerController extends Controller
         $grid->add('type.name', 'Type', true);
         $grid->add('status', 'Status', true)
             ->cell(function ($value, Beer $model) {
-                return $model->getStatus();
+                return HtmlFacade::link("beer/{$model->id}/toggle", $model->getStatus());
             });
         $grid->edit('/beer', __('Actions'), 'show|edit|destroy')
             ->cell(function (View $value, Beer $model) {

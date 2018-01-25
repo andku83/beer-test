@@ -51,6 +51,12 @@ class Brand extends Model
         ];
     }
 
+    public function toggle()
+    {
+        $this->status = $this->status ? 0 : 1;
+        return $this->save();
+    }
+
     public function getStatus()
     {
         return array_get(static::statusNames(), $this->status);
